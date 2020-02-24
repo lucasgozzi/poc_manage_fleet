@@ -13,7 +13,7 @@ import EditNewVehicle from "./pages/Vehicles/EditNew";
 import EditNewUser from "./pages/Users/EditNew";
 
 import StatusBar from './components/StatusBar/StatusBar';
-import ReservatiomFilter from "./pages/Reservation/ReservatiomFilter";
+import ReservationFilter from "./pages/Reservation/ReservationFilter";
 
 
 const App = () => {
@@ -57,7 +57,7 @@ const App = () => {
       component={() => <EditNewUser showStatus={renderStatus} />}></ProtectedRoute>,
 
     <ProtectedRoute path="/reservations" exact key={12}
-      component={() => <ReservatiomFilter showStatus={renderStatus} />}></ProtectedRoute>,
+      component={() => <ReservationFilter showStatus={renderStatus} />}></ProtectedRoute>,
   ];
 
   return (

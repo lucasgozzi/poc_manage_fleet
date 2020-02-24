@@ -16,21 +16,25 @@ const INITIAL_STATE = [{
     id: 1,
     name: 'Pedro Gozzi',
     email: 'pedro.gozzi@autozone.com.br',
+    active: true,
     profile: { id: '123', name: 'Admin' }
 }, {
     id: 2,
     name: 'Admin master',
     email: 'adm@autozone.com.br',
+    active: true,
     profile: { id: '123', name: 'Admin' }
 }, {
     id: 3,
     name: 'Luana Gozzi',
     email: 'lu.gozzi@neoviasolutions.com',
+    active: true,
     profile: { id: '124', name: 'Usuário' }
 }, {
     id: 4,
     name: 'José Nilton',
     email: 'josé.nilton@autozone.com.br',
+    active: true,
     profile: { id: '124', name: 'Usuário' }
 }];
 

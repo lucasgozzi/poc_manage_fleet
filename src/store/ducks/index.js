@@ -1,15 +1,17 @@
 import { combineReducers } from "redux";
-
-import todos from "./todos";
 import branches from "./branches";
-import vehicles from "./vehicles";
-import users from "./users";
 import security from "./security";
+import todos from "./todos";
+import users from "./users";
+import reservations from "./reservations";
+import vehicles from "./vehicles";
+
 
 export default combineReducers({
   todos,
   branches,
   vehicles,
+  reservations,
   users,
   security
 });
