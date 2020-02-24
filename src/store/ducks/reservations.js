@@ -5,7 +5,7 @@ import { createActions, createReducer } from "reduxsauce";
  */
 export const { Types, Creators } = createActions({
     filterReservations: ["date", "branch"],
-    addReservation: ["object"],
+    addReservation: ["id", "user"],
     removeReservation: ["id"]
 });
 
@@ -27,23 +27,27 @@ const FILTERED_STATE = [{
     vehicle: { id: 1, description: "Vectra GTI", plate: "DIA-1234" },
     canDelete: false,
 }, {
-    id: 2,
+    id: 3,
     date: new Date(),
     user: null,
     vehicle: { id: 1, description: "Vectra GTI", plate: "DIA-1234" },
     canDelete: false,
 }];
 
-const add = (state = INITIAL_STATE, action) => [
-    ...state,
-    action.object
-];
+const add = (state = INITIAL_STATE, action) => state.map(obj => {
+    const a = obj.id === action.id ?
+        { ...obj, user: action.user, canDelete: true } : obj;
+    console.log(a);
+    return a;
+});
+
 
 const filter = (state = INITIAL_STATE, action) => [
     ...FILTERED_STATE
 ];
 
-const remove = (state = INITIAL_STATE, action) => state.filter(obj => obj.id !== action.id);
+const removeReservation = (state = INITIAL_STATE, action) => state.map(obj => obj.id === action.id ?
+    { ...obj, user: null, canDelete: false } : obj);
 
 /**
  * Reducer
@@ -51,5 +55,5 @@ const remove = (state = INITIAL_STATE, action) => state.filter(obj => obj.id !==
 export default createReducer(INITIAL_STATE, {
     [Types.ADD_RESERVATION]: add,
     [Types.FILTER_RESERVATIONS]: filter,
-    [Types.REMOVE_RESERVATION]: remove
+    [Types.REMOVE_RESERVATION]: removeReservation
 });

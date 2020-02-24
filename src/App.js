@@ -14,6 +14,7 @@ import EditNewUser from "./pages/Users/EditNew";
 
 import StatusBar from './components/StatusBar/StatusBar';
 import ReservationFilter from "./pages/Reservation/ReservationFilter";
+import Report from "./pages/Report/Report";
 
 
 const App = () => {
@@ -58,6 +59,8 @@ const App = () => {
 
     <ProtectedRoute path="/reservations" exact key={12}
       component={() => <ReservationFilter showStatus={renderStatus} />}></ProtectedRoute>,
+    <ProtectedRoute path="/report" exact key={13}
+      component={() => <Report showStatus={renderStatus} />}></ProtectedRoute>,
   ];
 
   return (

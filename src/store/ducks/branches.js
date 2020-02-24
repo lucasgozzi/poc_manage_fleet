@@ -28,12 +28,17 @@ const add = (state = INITIAL_STATE, action) => [
     action.object
 ];
 
-const update = (state = INITIAL_STATE, action) => state.map(
-    branch => {
-        const newObj = branch.id === action.id ? { ...branch, ...action.object } : branch;
-        return newObj;
-    }
-);
+const update = (state = INITIAL_STATE, action) => {
+    const a = state.map(
+        branch => {
+            const newObj = branch.id.toString() === action.id.toString() ? { ...action.object } : branch;
+            console.log(newObj, branch.id, action.id);
+            return newObj;
+        }
+    )
+    console.log(a);
+    return a;
+};
 
 const remove = (state = INITIAL_STATE, action) => state.filter(obj => obj.id !== action.id);
 

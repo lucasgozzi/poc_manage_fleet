@@ -65,7 +65,7 @@ const Menu = props => {
                             </Typography>
                         </IconButton>
                         <IconButton className={classes.menuButton} color="inherit" aria-label="menu"
-                            onClick={() => history.push('/reservations')}>
+                            onClick={() => history.push('/report')}>
                             <Typography className={classes.title}>
                                 Relatórios
                             </Typography>
@@ -73,7 +73,7 @@ const Menu = props => {
                         <IconButton className={classes.menuButton} color="inherit" aria-label="menu"
                             onClick={() => {
                                 props.logout();
-                                history.push('/branches');
+                                history.push('/login');
                             }}>
                             <Typography variant="h6" className={classes.logout}>
                                 Logout

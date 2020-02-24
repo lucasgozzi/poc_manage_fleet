@@ -2,6 +2,8 @@ import { Grid, Box, Typography, Button } from '@material-ui/core';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
+import { Creators as ReservationActions } from "../../store/ducks/reservations";
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     vehicle: {
@@ -15,12 +17,13 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "10px"
     },
     free: {
+        cursor: "pointer",
         borderRadius: "10px",
-        background: "linear-gradient(0deg, #efefef 80%, #99ff99 20%)"
+        background: "linear-gradient(0deg, #efefef 68%, #99ff99 32%)"
     },
     busy: {
         borderRadius: "10px",
-        background: "linear-gradient(0deg, #ccc 80%, #ff6666 20%)"
+        background: "linear-gradient(0deg, #ccc 68%, #ff6666 32%)"
     },
     deleteIcon: {
         float: 'right',
@@ -32,22 +35,44 @@ const useStyles = makeStyles(theme => ({
 export default function ReservationCard(props) {
     const { reservation } = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    function removeReservation() {
+        dispatch(ReservationActions.removeReservation(reservation.id));
+    }
+
+    function addReservation(e) {
+        if (reservation.user)
+            return null;
+        else {
+            console.log({ id: 5, name: 'user da reserva', email: 'user@autozone.com' }, ReservationActions);
+            dispatch(ReservationActions.addReservation(reservation.id, {
+                id: 5, name: 'user da reserva', email: 'user@autozone.com'
+            }));
+        }
+
+    }
+
     return (
 
-        <Grid item xs={3}>
+        <Grid item xs={3} xm={6}>
 
-            {reservation.canDelete && <Button className={classes.deleteIcon}> <DeleteForeverSharpIcon /> </Button>}
+            {reservation.canDelete && <Button
+                onClick={() => removeReservation()}
+                className={classes.deleteIcon}> <DeleteForeverSharpIcon /> </Button>}
             <Box
                 boxShadow={3}
                 m={3}
-                p={6}
+                p={2}
                 className={reservation.user ? classes.busy : classes.free}
+                onClick={() => addReservation()}
             >
                 <Typography className={classes.vehicle}>
-                    {reservation.vehicle.description}
+                    {reservation.vehicle.plate}
                 </Typography>
                 <Typography className={classes.plate}>
-                    {reservation.vehicle.plate}
+                    {reservation.vehicle.description}
+
                 </Typography>
                 {reservation.user ?
                     <>

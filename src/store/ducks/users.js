@@ -45,7 +45,7 @@ const add = (state = INITIAL_STATE, action) => [
 
 const update = (state = INITIAL_STATE, action) => state.map(
     user => {
-        const newObj = user.id === action.id ? { ...user, ...action.object } : user;
+        const newObj = user.id.toString() === action.id.toString() ? { ...user, ...action.object } : user;
         return newObj;
     }
 );

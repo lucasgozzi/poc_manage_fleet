@@ -33,7 +33,7 @@ const add = (state = INITIAL_STATE, action) => [
 
 const update = (state = INITIAL_STATE, action) => state.map(
     vehicle => {
-        const newObj = vehicle.id === action.id ? { ...vehicle, ...action.object } : vehicle;
+        const newObj = vehicle.id.toString() === action.id.toString() ? { ...vehicle, ...action.object } : vehicle;
         return newObj;
     }
 );

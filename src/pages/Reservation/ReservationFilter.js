@@ -1,7 +1,7 @@
-import { Container, FormControl, FormHelperText, Grid, Typography, Button, TextField } from '@material-ui/core';
+import { Button, Container, FormControl, FormHelperText, Grid, TextField, Typography } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MyDatePicker from '../../components/DatePicker/MyDatePicker';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import ReservationCardList from '../../components/ReservationCardList/ReservationCardList';
 import { Creators } from "../../store/ducks/reservations";
 
@@ -10,7 +10,6 @@ const ReservationFilter = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(Creators.filterReservations('', ''));
     }, []);
 
     return (
@@ -34,7 +33,9 @@ const ReservationFilter = (props) => {
                 </Grid>
                 <Grid item xs={2}>
                     <Button variant="contained"
-                        onClick={() => { }}
+                        onClick={() => {
+                            dispatch(Creators.filterReservations('', ''));
+                        }}
                         color="primary">Buscar</Button>
                 </Grid>
             </Grid>

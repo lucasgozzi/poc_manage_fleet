@@ -6,7 +6,6 @@ import users from "./users";
 import reservations from "./reservations";
 import vehicles from "./vehicles";
 
-
 export default combineReducers({
   todos,
   branches,

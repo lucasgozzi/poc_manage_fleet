@@ -21,9 +21,18 @@ export default function MyTable(props) {
     const classes = useStyles();
 
     function renderCel(id, text) {
+        let aux = '';
+        console.log(typeof text)
+        if (typeof text === 'object' && text.getDate) {
+            aux =
+                `${text.getDate().toString().padStart(2, '0')}/${(text.getMonth() + 1).toString().padStart(2, '0')}/${(text.getFullYear() + 1).toString()}`;
+
+        } else {
+            aux = text;
+        }
         return (
             <TableCell key={id}>
-                {text}
+                {aux}
             </TableCell>)
     }
     function resolveVariable(row, key) {
@@ -54,7 +63,7 @@ export default function MyTable(props) {
         data.map((row, index1) => {
             var component = <TableRow
                 className={classes.clickable}
-                onClick={() => rowClick.event(row[rowClick.value])}
+                onClick={() => rowClick && rowClick.event(row[rowClick.value])}
                 key={`row${index1}`}>{renderRowCels(row, index1)}</TableRow>;
             arrRows.push(component);
             return null;
