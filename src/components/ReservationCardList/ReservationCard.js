@@ -1,9 +1,10 @@
 import { Grid, Box, Typography, Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
 import { Creators as ReservationActions } from "../../store/ducks/reservations";
 import { useDispatch } from 'react-redux';
+import ConfirmationDialog from '../../components/Dialogs/ConfirmationDialog';
 
 const useStyles = makeStyles(theme => ({
     vehicle: {
@@ -36,36 +37,54 @@ export default function ReservationCard(props) {
     const { reservation } = props;
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    const [showConfirmationAdd, setShowAdd] = useState(false);
+    const [showConfirmationRemove, setShowRemove] = useState(false);
     function removeReservation() {
         dispatch(ReservationActions.removeReservation(reservation.id));
     }
 
-    function addReservation(e) {
+    function addReservation(descricao) {
+        dispatch(ReservationActions.addReservation(reservation.id, {
+            id: 5, name: 'user da reserva', email: 'user@autozone.com'
+        }));
+    }
+
+    function confirm(e) {
         if (reservation.user)
             return null;
         else {
-            console.log({ id: 5, name: 'user da reserva', email: 'user@autozone.com' }, ReservationActions);
-            dispatch(ReservationActions.addReservation(reservation.id, {
-                id: 5, name: 'user da reserva', email: 'user@autozone.com'
-            }));
+            setShowAdd(true);
         }
+    }
 
+    function confirmRemove(e) {
+        if (!reservation.user)
+            return null;
+        else {
+            setShowRemove(true);
+        }
     }
 
     return (
 
         <Grid item xs={3} xm={6}>
-
+            {showConfirmationAdd && <ConfirmationDialog okFunction={addReservation}
+                cancelFunction={() => setShowAdd(false)}
+                hasDescription={true}
+                info={"Reservar este carro? "} />}
+            {showConfirmationRemove && <ConfirmationDialog okFunction={removeReservation}
+                cancelFunction={() => setShowRemove(false)}
+                hasDescription={false}
+                info={"Remover esta reserva? "} />}
             {reservation.canDelete && <Button
-                onClick={() => removeReservation()}
+                onClick={() => confirmRemove()}
                 className={classes.deleteIcon}> <DeleteForeverSharpIcon /> </Button>}
             <Box
                 boxShadow={3}
                 m={3}
                 p={2}
                 className={reservation.user ? classes.busy : classes.free}
-                onClick={() => addReservation()}
+                onClick={() => confirm()}
             >
                 <Typography className={classes.vehicle}>
                     {reservation.vehicle.plate}
